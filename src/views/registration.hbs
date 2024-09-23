@@ -1,0 +1,60 @@
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<script>
+  function onSubmit(token) {
+  document.getElementById("registration-form").submit(); }
+</script>
+
+<h1>Registrierung Schnuppertag</h1>
+
+<p>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+  nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+  eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+  in culpa qui officia deserunt mollit anim id est laborum.
+</p>
+
+<form action="/" method="post" id="registration-form">
+  <label for="vorname">Vorname:</label>
+  <input type="text" id="first-name" name="first-name" required />
+
+  <label for="nachname">Nachname:</label>
+  <input type="text" id="last-name" name="last-name" required />
+
+  <label for="email">E-Mail:</label>
+  <input type="email" id="email" name="email" required />
+
+  <label for="telefonnummer">Telefonnummer:</label>
+  <input type="tel" id="phone-number" name="phone-number" required />
+
+  <label for="wohnort">Wohnort:</label>
+  <input type="text" id="residence" name="residence" required />
+
+  <label for="schule">Aktuelle Schule:</label>
+  <input type="text" id="current-school" name="current-school" required />
+
+  <label for="klasse">Aktuelle Klasse (Jahrgang):</label>
+  <input type="text" id="current-class" name="current-class" required />
+
+  <label for="abteilung">Abteilung:</label>
+  <select id="department" name="department" required>
+    <option value="informatik">INFORMATIK</option>
+    <option value="medientechnik">MEDIENTECHNIK</option>
+  </select>
+
+  <label for="termin">Termin:</label>
+  <select id="appointment" name="appointment" required>
+    <option value="termin1">Termin 1</option>
+    <option value="termin2">Termin 2</option>
+    <option value="termin3">Termin 3</option>
+  </select>
+
+  <div></div>
+  <button
+    class="g-recaptcha"
+    data-sitekey="{{captchaKey}}"
+    data-callback="onSubmit"
+    data-action="register"
+  >Absenden</button>
+</form>

@@ -1,0 +1,31 @@
+{
+  "name": "htl-anmeldung-schnuppertag",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && cp -r src/views dist/ && cp -r src/public dist/&& cp ./.env dist/ && cp ./package*.json dist/",
+    "start": "npm run build && node ./dist/main.js | pino-pretty",
+    "watch": "nodemon"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@azure/cosmos": "^4.1.1",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-handlebars": "^8.0.1",
+    "pino": "^9.3.2",
+    "pino-http": "^10.2.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/express-handlebars": "^5.3.1",
+    "nodemon": "^3.1.7",
+    "pino-pretty": "^11.2.2",
+    "typescript": "^5.5.4"
+  }
+}

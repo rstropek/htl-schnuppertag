@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "rootDir": "./src",
+      "outDir": "./dist",
+      "forceConsistentCasingInFileNames": true,
+      "module": "nodenext",
+      "moduleResolution": "nodenext",
+      "noUncheckedIndexedAccess": true,
+      "skipLibCheck": true,
+      "sourceMap": true,
+      "strict": true,
+      "target": "esnext"
+    }
+  }
+  

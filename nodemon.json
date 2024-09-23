@@ -1,0 +1,16 @@
+{
+    "restartable": "rs",
+    "ignore": [
+        ".git",
+        "node_modules",
+        "dist"
+    ],
+    "watch": [
+        "src"
+    ],
+    "exec": "npm run start",
+    "ext": "ts,hbs,css",
+    "env": {
+        "NODE_ENV": "development"
+    }
+}

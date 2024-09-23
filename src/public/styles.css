@@ -1,0 +1,19 @@
+html {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+form {
+    display: grid;
+    grid-template-columns: auto minmax(200px, 1fr);
+    gap: 5px;
+}
+
+@media (max-width: 550px) {
+    label {
+        margin-top: 10px;
+    }
+
+    form {
+        grid-template-columns: 1fr;
+    }
+}
