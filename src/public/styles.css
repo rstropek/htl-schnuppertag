@@ -3,17 +3,26 @@ html {
 }
 
 form {
-    display: grid;
-    grid-template-columns: auto minmax(200px, 1fr);
-    gap: 5px;
+  display: grid;
+  grid-template-columns: auto minmax(200px, 1fr);
+  gap: 5px;
 }
 
 @media (max-width: 550px) {
-    label {
-        margin-top: 10px;
-    }
+  label {
+    margin-top: 10px;
+  }
 
-    form {
-        grid-template-columns: 1fr;
-    }
+  form {
+    grid-template-columns: 1fr;
+  }
+}
+
+input {
+    width: 100%
+}
+
+.error {
+    color: red;
+    font-size: smaller;
 }

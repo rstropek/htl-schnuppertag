@@ -16,46 +16,96 @@
 </p>
 
 <form action="/" method="post" id="registration-form">
-  <label for="first-name">Vorname:</label>
-  <input type="text" id="first-name" name="first-name" required />
+  <label for="first_name">Vorname:</label>
+  <div>
+    <input type="text" id="first_name" name="first_name" required value="{{formData.first_name}}" />
+    {{#if formData.first_name_error}}
+      <div class="error">{{formData.first_name_error}}</div>
+    {{/if}}
+  </div>
 
-  <label for="last-name">Nachname:</label>
-  <input type="text" id="last-name" name="last-name" required />
+  <label for="last_name">Nachname:</label>
+  <div>
+    <input type="text" id="last_name" name="last_name" required />
+    {{#if formData.last_name_error}}
+      <div class="error">{{formData.last_name_error}}</div>
+    {{/if}}
+  </div>
 
   <label for="gender">Geschlecht:</label>
-  <select id="gender" name="gender" required>
-    <option value="female">Mädchen</option>
-    <option value="male">Junge</option>
-    <option value="not-specified">Keine Angabe</option>
-  </select>
+  <div>
+    <select id="gender" name="gender" required>
+      <option value="" disabled selected hidden>Bitte auswählen</option>
+      <option value="female">Mädchen</option>
+      <option value="male">Junge</option>
+      <option value="not-specified">Keine Angabe</option>
+    </select>
+    {{#if formData.gender_error}}
+      <div class="error">{{formData.gender_error}}</div>
+    {{/if}}
+  </div>
 
   <label for="email">E-Mail:</label>
-  <input type="email" id="email" name="email" required />
+  <div>
+    <input type="email" id="email" name="email" required />
+    {{#if formData.email_error}}
+      <div class="error">{{formData.email_error}}</div>
+    {{/if}}
+  </div>
 
-  <label for="phone-number">Telefonnummer:</label>
-  <input type="tel" id="phone-number" name="phone-number" required />
+  <label for="phone_number">Telefonnummer:</label>
+  <div>
+    <input type="tel" id="phone_number" name="phone_number" required />
+    {{#if formData.phone_number_error}}
+      <div class="error">{{formData.phone_number_error}}</div>
+    {{/if}}
+  </div>
 
   <label for="residence">Wohnort:</label>
-  <input type="text" id="residence" name="residence" required />
+  <div>
+    <input type="text" id="residence" name="residence" required />
+    {{#if formData.residence_error}}
+      <div class="error">{{formData.residence_error}}</div>
+    {{/if}}
+  </div>
 
-  <label for="current-school">Aktuelle Schule:</label>
-  <input type="text" id="current-school" name="current-school" required />
+  <label for="current_school">Aktuelle Schule:</label>
+  <div>
+    <input type="text" id="current_school" name="current_school" required />
+    {{#if formData.current_school_error}}
+      <div class="error">{{formData.current_school_error}}</div>
+    {{/if}}
+  </div>
 
-  <label for="current-class">Aktuelle Klasse (Jahrgang):</label>
-  <input type="text" id="current-class" name="current-class" required />
+  <label for="current_class">Aktuelle Klasse (Jahrgang):</label>
+  <div>
+    <input type="text" id="current-class" name="current_class" required />
+    {{#if formData.current_class_error}}
+      <div class="error">{{formData.current_class_error}}</div>
+    {{/if}}
+  </div>
 
   <label for="department">Abteilung:</label>
-  <select id="department" name="department" required>
-    <option value="informatik">Informatik</option>
-    <option value="medientechnik">Medientechnik</option>
-  </select>
+  <div>
+    <select id="department" name="department" required>
+      <option value="" disabled selected hidden>Bitte auswählen</option>
+      <option value="informatik">Informatik</option>
+      <option value="medientechnik">Medientechnik</option>
+    </select>
+    {{#if formData.department_error}}
+      <div class="error">{{formData.department_error}}</div>
+    {{/if}}
+  </div>
 
   <label for="termin">Mögliche Termine:</label>
-  <select id="appointment" name="appointment" required>
-    <option value="termin1">Termin 1</option>
-    <option value="termin2">Termin 2</option>
-    <option value="termin3">Termin 3</option>
-  </select>
+  <div>
+    <select id="appointment" name="appointment" required disabled>
+      <option value="" disabled selected hidden>Bitte auswählen</option>
+    </select>
+    {{#if formData.appointment_error}}
+      <div class="error">{{formData.appointment_error}}</div>
+    {{/if}}
+  </div>
 
   <div></div>
   <button
@@ -72,8 +122,6 @@
     { department: "{{department}}", isoDate: "{{isoDate}}" },
   {{/each}}
   ];
-
-  console.log(appointments);
 
   const departmentSelect = document.getElementById('department');
   const appointmentSelect = document.getElementById('appointment');
@@ -92,5 +140,11 @@
   }
 
   refreshAppointments();
-  departmentSelect.addEventListener('change', () => refreshAppointments());
+  departmentSelect.addEventListener('change', () => {
+    if (departmentSelect.value) {
+      refreshAppointments();
+      appointmentSelect.value = "";
+      appointmentSelect.disabled = false;
+    }
+  });
 </script>
