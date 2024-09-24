@@ -1,0 +1,11 @@
+{
+    "appointments": [
+        { "department": "informatik", "isoDate": "2024-09-24", "maxAttendees": 3 },
+        { "department": "informatik", "isoDate": "2024-09-25", "maxAttendees": 3 },
+        { "department": "informatik", "isoDate": "2024-09-26", "maxAttendees": 3 },
+        { "department": "medientechnik", "isoDate": "2024-09-27", "maxAttendees": 3 },
+        { "department": "medientechnik", "isoDate": "2024-09-28", "maxAttendees": 3 },
+        { "department": "medientechnik", "isoDate": "2024-09-29", "maxAttendees": 3 }
+    ],
+    "rateGirls": 0.5
+}

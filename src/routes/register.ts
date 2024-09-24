@@ -1,5 +1,7 @@
 import express from "express";
 import logger from "../helpers/logging.js";
+import { Database } from "@azure/cosmos";
+import { getAppointments } from "../data/appointments.js";
 
 type RecaptchaResponse = {
   success: boolean;
@@ -9,11 +11,18 @@ type RecaptchaResponse = {
   action: string;
 };
 
-export function createRegistrationRoute(): express.Router {
+export function createRegistrationRoute(cosmosDb: Database): express.Router {
   const router = express.Router();
 
   router.get("/", async (req, res) => {
-    res.render("registration", { captchaKey: process.env.RECAPTCHA_SITE_KEY });
+    const appointments = await getAppointments(cosmosDb);
+    if (!appointments) {
+      logger.error("No appointments found");
+      res.status(500).send("No appointments found");
+      return;
+    }
+
+    res.render("registration", { captchaKey: process.env.RECAPTCHA_SITE_KEY, appointments: appointments.appointments });
   });
 
   router.post("/", async (req, res) => {

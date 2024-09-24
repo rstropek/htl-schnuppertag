@@ -16,34 +16,41 @@
 </p>
 
 <form action="/" method="post" id="registration-form">
-  <label for="vorname">Vorname:</label>
+  <label for="first-name">Vorname:</label>
   <input type="text" id="first-name" name="first-name" required />
 
-  <label for="nachname">Nachname:</label>
+  <label for="last-name">Nachname:</label>
   <input type="text" id="last-name" name="last-name" required />
+
+  <label for="gender">Geschlecht:</label>
+  <select id="gender" name="gender" required>
+    <option value="female">Mädchen</option>
+    <option value="male">Junge</option>
+    <option value="not-specified">Keine Angabe</option>
+  </select>
 
   <label for="email">E-Mail:</label>
   <input type="email" id="email" name="email" required />
 
-  <label for="telefonnummer">Telefonnummer:</label>
+  <label for="phone-number">Telefonnummer:</label>
   <input type="tel" id="phone-number" name="phone-number" required />
 
-  <label for="wohnort">Wohnort:</label>
+  <label for="residence">Wohnort:</label>
   <input type="text" id="residence" name="residence" required />
 
-  <label for="schule">Aktuelle Schule:</label>
+  <label for="current-school">Aktuelle Schule:</label>
   <input type="text" id="current-school" name="current-school" required />
 
-  <label for="klasse">Aktuelle Klasse (Jahrgang):</label>
+  <label for="current-class">Aktuelle Klasse (Jahrgang):</label>
   <input type="text" id="current-class" name="current-class" required />
 
-  <label for="abteilung">Abteilung:</label>
+  <label for="department">Abteilung:</label>
   <select id="department" name="department" required>
-    <option value="informatik">INFORMATIK</option>
-    <option value="medientechnik">MEDIENTECHNIK</option>
+    <option value="informatik">Informatik</option>
+    <option value="medientechnik">Medientechnik</option>
   </select>
 
-  <label for="termin">Termin:</label>
+  <label for="termin">Mögliche Termine:</label>
   <select id="appointment" name="appointment" required>
     <option value="termin1">Termin 1</option>
     <option value="termin2">Termin 2</option>
@@ -58,3 +65,32 @@
     data-action="register"
   >Absenden</button>
 </form>
+
+<script>
+  const appointments = [
+  {{#each appointments}}
+    { department: "{{department}}", isoDate: "{{isoDate}}" },
+  {{/each}}
+  ];
+
+  console.log(appointments);
+
+  const departmentSelect = document.getElementById('department');
+  const appointmentSelect = document.getElementById('appointment');
+
+  function refreshAppointments() {
+    const department = departmentSelect.value;
+    const departmentAppointments = appointments.filter((appointment) => appointment.department === department);
+
+    appointmentSelect.innerHTML = '';
+    departmentAppointments.forEach((appointment) => {
+      const option = document.createElement('option');
+      option.value = appointment.isoDate;
+      option.textContent = `${appointment.isoDate.substring(8, 10)}.${appointment.isoDate.substring(5, 7)}.${appointment.isoDate.substring(0, 4)}`;
+      appointmentSelect.appendChild(option);
+    });
+  }
+
+  refreshAppointments();
+  departmentSelect.addEventListener('change', () => refreshAppointments());
+</script>

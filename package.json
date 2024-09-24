@@ -15,6 +15,7 @@
   "dependencies": {
     "@azure/cosmos": "^4.1.1",
     "body-parser": "^1.20.2",
+    "command-line-args": "^6.0.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-handlebars": "^8.0.1",
@@ -22,6 +23,7 @@
     "pino-http": "^10.2.0"
   },
   "devDependencies": {
+    "@types/command-line-args": "^5.2.3",
     "@types/express": "^4.17.21",
     "@types/express-handlebars": "^5.3.1",
     "nodemon": "^3.1.7",
