@@ -131,7 +131,6 @@
     const departmentAppointments = appointments.filter((appointment) => appointment.department === department);
 
     appointmentSelect.innerHTML = '';
-    // <option value="" disabled selected hidden>Bitte auswählen</option>
     let option = document.createElement('option');
     option.value = "";
     option.textContent = "Bitte auswählen";
