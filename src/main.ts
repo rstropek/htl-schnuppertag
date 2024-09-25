@@ -47,6 +47,8 @@ app.engine("hbs", engine({
   layoutsDir: path.join(__dirname, "views", "layouts"),
   partialsDir: path.join(__dirname, "views", "partials"),
   helpers: {
+    eq(a: any, b: any) { return a === b; },
+    stringify(x: any) { return JSON.stringify(x); },
     dateFormat(dateStr: string) {
       const options: Intl.DateTimeFormatOptions = {
         year: 'numeric',
