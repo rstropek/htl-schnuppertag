@@ -99,7 +99,7 @@
 
   <label for="termin">Mögliche Termine:</label>
   <div>
-    <select id="appointment" name="appointment" required value="{{formData.appointment}}">
+    <select id="appointment" name="appointment" required value="{{formData.appointment}}" disabled>
       <option value="" disabled selected hidden>Bitte auswählen</option>
     </select>
     {{#if formData.appointment_error}}
@@ -131,8 +131,16 @@
     const departmentAppointments = appointments.filter((appointment) => appointment.department === department);
 
     appointmentSelect.innerHTML = '';
+    // <option value="" disabled selected hidden>Bitte auswählen</option>
+    let option = document.createElement('option');
+    option.value = "";
+    option.textContent = "Bitte auswählen";
+    option.disabled = true;
+    option.selected = true;
+    option.hidden = true;
+    appointmentSelect.appendChild(option);
     departmentAppointments.forEach((appointment) => {
-      const option = document.createElement('option');
+      option = document.createElement('option');
       option.value = appointment.isoDate;
       option.textContent = `${appointment.isoDate.substring(8, 10)}.${appointment.isoDate.substring(5, 7)}.${appointment.isoDate.substring(0, 4)}`;
       if (appointment.selected) {
@@ -150,4 +158,8 @@
       appointmentSelect.disabled = false;
     }
   });
+
+  if (departmentSelect.value) {
+    appointmentSelect.disabled = false;
+  }
 </script>
