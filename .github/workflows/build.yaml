@@ -32,7 +32,7 @@ jobs:
       id: push
       uses: docker/build-push-action@v5
       with:
-        context: ./server
-        file: ./server/Dockerfile
+        context: .
+        file: ./Dockerfile
         push: true
         tags: rstropek/htl-anmeldung-schnuppertag:latest
