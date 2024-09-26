@@ -4,161 +4,102 @@
   document.getElementById("registration-form").submit(); }
 </script>
 
-<h1>Registrierung Schnuppertag</h1>
+<main>
+  <p>
+    Du möchtest die HTBLA Leonding kennenlernen? Hier kannst du dich für deinen individuellen Schnupper-Schultag in der HTBLA Leonding anmelden. Gib als erstes deine persönlichen Daten ein und wähle aus, welche Abteilung dich interessiert. Auf der nächsten Seite zeigen wir dir die noch freien Termine an. Sollte kein Termin mehr verfügbar sein, kannst du dich auf die Warteliste setzen lassen. In diesem Fall informieren wir dich, sobald ein Termin frei wird.
+  </p>
 
-<p>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-  nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-  eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-  in culpa qui officia deserunt mollit anim id est laborum.
-</p>
+  <form action="/" method="post" id="registration-form">
+    <label for="first_name">Vorname:</label>
+    <div>
+      <input type="text" id="first_name" name="first_name" required value="{{formData.first_name}}" autocomplete="given-name" />
+      {{#if formData.first_name_error}}
+        <div class="error">{{formData.first_name_error}}</div>
+      {{/if}}
+    </div>
 
-<form action="/" method="post" id="registration-form">
-  <label for="first_name">Vorname:</label>
-  <div>
-    <input type="text" id="first_name" name="first_name" required value="{{formData.first_name}}" />
-    {{#if formData.first_name_error}}
-      <div class="error">{{formData.first_name_error}}</div>
-    {{/if}}
-  </div>
+    <label for="last_name">Nachname:</label>
+    <div>
+      <input type="text" id="last_name" name="last_name" required value="{{formData.last_name}}" autocomplete="family-name" />
+      {{#if formData.last_name_error}}
+        <div class="error">{{formData.last_name_error}}</div>
+      {{/if}}
+    </div>
 
-  <label for="last_name">Nachname:</label>
-  <div>
-    <input type="text" id="last_name" name="last_name" required value="{{formData.last_name}}" />
-    {{#if formData.last_name_error}}
-      <div class="error">{{formData.last_name_error}}</div>
-    {{/if}}
-  </div>
+    <label for="gender">Geschlecht:</label>
+    <div>
+      <select id="gender" name="gender" required value="{{formData.gender}}" autocomplete="sex">
+        <option value="" disabled selected hidden>Bitte auswählen</option>
+        <option value="female" {{#if (eq formData.gender "female")}}selected{{/if}}>Mädchen</option>
+        <option value="male" {{#if (eq formData.gender "male")}}selected{{/if}}>Junge</option>
+        <option value="not-specified" {{#if (eq formData.gender "not-specified")}}selected{{/if}}>Keine Angabe</option>
+      </select>
+      {{#if formData.gender_error}}
+        <div class="error">{{formData.gender_error}}</div>
+      {{/if}}
+    </div>
 
-  <label for="gender">Geschlecht:</label>
-  <div>
-    <select id="gender" name="gender" required value="{{formData.gender}}">
-      <option value="" disabled selected hidden>Bitte auswählen</option>
-      <option value="female" {{#if (eq formData.gender "female")}}selected{{/if}}>Mädchen</option>
-      <option value="male" {{#if (eq formData.gender "male")}}selected{{/if}}>Junge</option>
-      <option value="not-specified" {{#if (eq formData.gender "not-specified")}}selected{{/if}}>Keine Angabe</option>
-    </select>
-    {{#if formData.gender_error}}
-      <div class="error">{{formData.gender_error}}</div>
-    {{/if}}
-  </div>
+    <label for="email">E-Mail:</label>
+    <div>
+      <input type="email" id="email" name="email" required value="{{formData.email}}" autocomplete="email"/>
+      {{#if formData.email_error}}
+        <div class="error">{{formData.email_error}}</div>
+      {{/if}}
+    </div>
 
-  <label for="email">E-Mail:</label>
-  <div>
-    <input type="email" id="email" name="email" required value="{{formData.email}}" />
-    {{#if formData.email_error}}
-      <div class="error">{{formData.email_error}}</div>
-    {{/if}}
-  </div>
+    <label for="phone_number">Telefonnummer:</label>
+    <div>
+      <input type="tel" id="phone_number" name="phone_number" required value="{{formData.phone_number}}" autocomplete="tel" />
+      {{#if formData.phone_number_error}}
+        <div class="error">{{formData.phone_number_error}}</div>
+      {{/if}}
+    </div>
 
-  <label for="phone_number">Telefonnummer:</label>
-  <div>
-    <input type="tel" id="phone_number" name="phone_number" required value="{{formData.phone_number}}" />
-    {{#if formData.phone_number_error}}
-      <div class="error">{{formData.phone_number_error}}</div>
-    {{/if}}
-  </div>
+    <label for="residence">Wohnort:</label>
+    <div>
+      <input type="text" id="residence" name="residence" required value="{{formData.residence}}" autocomplete="address-level2" />
+      {{#if formData.residence_error}}
+        <div class="error">{{formData.residence_error}}</div>
+      {{/if}}
+    </div>
 
-  <label for="residence">Wohnort:</label>
-  <div>
-    <input type="text" id="residence" name="residence" required value="{{formData.residence}}" />
-    {{#if formData.residence_error}}
-      <div class="error">{{formData.residence_error}}</div>
-    {{/if}}
-  </div>
+    <label for="current_school">Aktuelle Schule:</label>
+    <div>
+      <input type="text" id="current_school" name="current_school" required value="{{formData.current_school}}" autocomplete="off"/>
+      {{#if formData.current_school_error}}
+        <div class="error">{{formData.current_school_error}}</div>
+      {{/if}}
+    </div>
 
-  <label for="current_school">Aktuelle Schule:</label>
-  <div>
-    <input type="text" id="current_school" name="current_school" required value="{{formData.current_school}}"/>
-    {{#if formData.current_school_error}}
-      <div class="error">{{formData.current_school_error}}</div>
-    {{/if}}
-  </div>
+    <label for="current_class">Aktuelle Klasse (Jahrgang):</label>
+    <div>
+      <input type="text" id="current_class" name="current_class" required value="{{formData.current_class}}" autocomplete="off" />
+      {{#if formData.current_class_error}}
+        <div class="error">{{formData.current_class_error}}</div>
+      {{/if}}
+    </div>
 
-  <label for="current_class">Aktuelle Klasse (Jahrgang):</label>
-  <div>
-    <input type="text" id="current_class" name="current_class" required value="{{formData.current_class}}" />
-    {{#if formData.current_class_error}}
-      <div class="error">{{formData.current_class_error}}</div>
-    {{/if}}
-  </div>
+    <label for="department">Abteilung:</label>
+    <div>
+      <select id="department" name="department" required value="{{formData.department}}" autocomplete="off">
+        <option value="" disabled selected hidden>Bitte auswählen</option>
+        <option value="informatik" {{#if (eq formData.department "informatik")}}selected{{/if}}>Informatik</option>
+        <option value="medientechnik" {{#if (eq formData.department "medientechnik")}}selected{{/if}}>Medientechnik</option>
+      </select>
+      {{#if formData.department_error}}
+        <div class="error">{{formData.department_error}}</div>
+      {{/if}}
+    </div>
 
-  <label for="department">Abteilung:</label>
-  <div>
-    <select id="department" name="department" required value="{{formData.department}}">
-      <option value="" disabled selected hidden>Bitte auswählen</option>
-      <option value="informatik" {{#if (eq formData.department "informatik")}}selected{{/if}}>Informatik</option>
-      <option value="medientechnik" {{#if (eq formData.department "medientechnik")}}selected{{/if}}>Medientechnik</option>
-    </select>
-    {{#if formData.department_error}}
-      <div class="error">{{formData.department_error}}</div>
-    {{/if}}
-  </div>
+    <div></div>
+    <div>
+      <button
+        class="g-recaptcha"
+        data-sitekey="{{captchaKey}}"
+        data-callback="onSubmit"
+        data-action="register"
+      >Absenden</button>
+    </div>
+  </form>
 
-  <label for="termin">Mögliche Termine:</label>
-  <div>
-    <select id="appointment" name="appointment" required value="{{formData.appointment}}" disabled>
-      <option value="" disabled selected hidden>Bitte auswählen</option>
-    </select>
-    {{#if formData.appointment_error}}
-      <div class="error">{{formData.appointment_error}}</div>
-    {{/if}}
-  </div>
-
-  <div></div>
-  <button
-    class="g-recaptcha"
-    data-sitekey="{{captchaKey}}"
-    data-callback="onSubmit"
-    data-action="register"
-  >Absenden</button>
-</form>
-
-<script>
-  const appointments = {{{stringify appointments}}};
-
-  const departmentSelect = document.getElementById('department');
-  const appointmentSelect = document.getElementById('appointment');
-
-  if (departmentSelect.value) {
-    appointmentSelect.disabled = false;
-  }
-
-  function refreshAppointments() {
-    const department = departmentSelect.value;
-    const departmentAppointments = appointments.filter((appointment) => appointment.department === department);
-
-    appointmentSelect.innerHTML = '';
-    let option = document.createElement('option');
-    option.value = "";
-    option.textContent = "Bitte auswählen";
-    option.disabled = true;
-    option.selected = true;
-    option.hidden = true;
-    appointmentSelect.appendChild(option);
-    departmentAppointments.forEach((appointment) => {
-      option = document.createElement('option');
-      option.value = appointment.isoDate;
-      option.textContent = `${appointment.isoDate.substring(8, 10)}.${appointment.isoDate.substring(5, 7)}.${appointment.isoDate.substring(0, 4)}`;
-      if (appointment.selected) {
-        option.selected = true;
-      }
-      appointmentSelect.appendChild(option);
-    });
-  }
-
-  refreshAppointments();
-  departmentSelect.addEventListener('change', () => {
-    if (departmentSelect.value) {
-      refreshAppointments();
-      appointmentSelect.value = "";
-      appointmentSelect.disabled = false;
-    }
-  });
-
-  if (departmentSelect.value) {
-    appointmentSelect.disabled = false;
-  }
-</script>
+</main>

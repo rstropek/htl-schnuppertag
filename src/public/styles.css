@@ -1,28 +1,142 @@
 html {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+  max-width: 768;
+  margin: 0 auto;
+}
+
+footer {
+  font-size: smaller;
+  border-top: 1px solid darkgray;
+  padding-top: 10px;
+  margin-top: 40px;
+  text-align: center;
+}
+
+/* Increase line height */
+p {
+  line-height: 1.35;
+  margin: 20px 0 20px 0;
+}
+
+.hero {
+  display: flex;
+  background-color: lightgray;
+  height: 150px;
+}
+
+@media (max-width: 550px) {
+  .hero {
+    flex-direction: column;
+    align-items: start;
+    height: auto;
+  }
+  
+  .hero img {
+    width: 150px;
+    margin: 15px 0 55px 10px;
+  }
+  
+  .hero h1 {
+    font-size: 30px;
+    margin: 0 0 10px 10px;
+  }
+}
+
+@media (min-width: 550px) {
+  .hero {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: end;
+  }
+
+  .hero img {
+    width: 200px;
+    margin: 0 10px 10px 0;
+  }
+
+  .hero h1 {
+    font-size: 40px;
+    margin: 0 0 10px 10px;
+  }
+}
+
+main {
+  margin: 0 10px 0 10px;
 }
 
 form {
   display: grid;
   grid-template-columns: auto minmax(200px, 1fr);
-  gap: 5px;
+  gap: 10px;
+  align-items: center;
 }
 
 @media (max-width: 550px) {
   label {
     margin-top: 10px;
   }
-
+  
   form {
     grid-template-columns: 1fr;
   }
 }
 
-input {
-    width: 100%
+@media (min-width: 550px) {
+  label {
+    text-align: right;
+  }
+}
+
+input, select {
+  padding: 5px;
+  width: 100%;
 }
 
 .error {
-    color: red;
-    font-size: smaller;
+  color: red;
+  font-size: smaller;
+  margin-bottom: 5px;
+}
+
+button {
+  padding: 10px;
+  width: 100%;
+}
+
+form.appointments {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+input[type="radio"] {
+  margin-right: 5px;
+  width: auto;
+}
+
+form.appointments label {
+  display: flex;
+  flex-direction: row;
+  padding: 8px;
+}
+
+.reg-protocol {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  background-color: rgb(236, 236, 236);
+  padding: 20px;
+}
+
+.reg-protocol div:nth-child(2n+1) {
+  text-align: right;
+}
+
+.highlighted {
+  color: red;
 }

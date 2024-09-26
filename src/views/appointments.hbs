@@ -1,0 +1,49 @@
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<script>
+  function onSubmit(token) {
+  document.getElementById("registration-form").submit(); }
+</script>
+
+<main>
+  <p>
+    {{#if full}}
+      Leider sind alle Termine bereits vergeben. Du kannst dich aber auf die Warteliste setzen lassen.
+      Wir informieren dich, sobald ein Termin frei wird.
+    {{else}}
+      Hier siehst du die verfügbaren Termine. Bitte wähle einen für dich passenden aus:
+    {{/if}}
+  </p>
+
+  <form class="appointments" action="/" method="post" id="registration-form">
+      <input hidden type="text" id="first_name" name="first_name" value="{{formData.first_name}}" />
+      <input hidden type="text" id="last_name" name="last_name" value="{{formData.last_name}}" />
+      <input hidden type="text" id="gender" name="gender" value="{{formData.gender}}" />
+      <input hidden type="text" id="email" name="email" value="{{formData.email}}" />
+      <input hidden type="text" id="phone_number" name="phone_number" value="{{formData.phone_number}}" />
+      <input hidden type="text" id="residence" name="residence" value="{{formData.residence}}" />
+      <input hidden type="text" id="current_school" name="current_school" value="{{formData.current_school}}" />
+      <input hidden type="text" id="current_class" name="current_class" value="{{formData.current_class}}" />
+      <input hidden type="text" id="department" name="department" value="{{formData.department}}" />
+
+      {{#if full}}
+        <input hidden type="text" name="appointment" value="waiting-list" />
+      {{else}}
+        {{#each appointments }}
+        <label>
+            <input type="radio" name="appointment" value="{{isoDate}}">{{dateFormat isoDate}}
+        </label>
+        {{/each}}
+        <label>
+            <input type="radio" name="appointment" value="waiting-list">Keiner der Termine passt, ich möchte auf die Warteliste.
+        </label>
+      {{/if}}
+
+      <button
+        class="g-recaptcha"
+        data-sitekey="{{captchaKey}}"
+        data-callback="onSubmit"
+        data-action="register"
+      >{{#if full}}In Warteliste eintragen{{else}}Termin reservieren{{/if}}</button>
+    </div>
+  </form>
+</main>

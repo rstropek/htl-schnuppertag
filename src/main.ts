@@ -11,6 +11,7 @@ import logger from "./helpers/logging.js";
 import { createRegistrationRoute } from "./routes/register.js";
 import { createCosmosClient, getDatabase } from "./helpers/cosmosHelper.js";
 import { handleAppointmentImport } from "./data/appointments.js";
+import { handleRegistrationExport } from "./data/registrations.js";
 
 const isDevelopment = process.env.NODE_ENV === "development";
 logger.info({ configuration: isDevelopment ? "development" : "production" }, "Start configuration");
@@ -36,6 +37,9 @@ const argv = mainOptions._unknown || []
 if (mainOptions.command === 'import') {
   await handleAppointmentImport(cosmosDb, argv);
   process.exit(0);
+} else if (mainOptions.command === 'export') {
+  await handleRegistrationExport(cosmosDb);
+  process.exit(0);
 }
 
 const app = express();
@@ -50,6 +54,7 @@ app.engine("hbs", engine({
     eq(a: any, b: any) { return a === b; },
     stringify(x: any) { return JSON.stringify(x); },
     dateFormat(dateStr: string) {
+      if (dateStr === 'waiting-list') { return 'Warteliste'; }
       const options: Intl.DateTimeFormatOptions = {
         year: 'numeric',
         month: '2-digit',
@@ -58,8 +63,22 @@ app.engine("hbs", engine({
         minute: '2-digit',
         hour12: false
       };
-      return new Date(dateStr).toLocaleString('de-AT', options).replace(',', '');
+      return new Date(dateStr).toLocaleString('de-AT', options).substring(0, 10);
     },
+    formatGender(g: string) { 
+      switch (g) {
+        case 'male': return 'Junge';
+        case 'female': return 'Mädchen';
+        default: return 'Keine Angabe';
+      }
+    },
+    formatDepartment(d: string) {
+      switch (d) {
+        case 'informatik': return 'Informatik';
+        case 'medientechnik': return 'Medientechnik';
+        default: return 'Keine Angabe';
+      }
+    }
   }
 }));
 app.set('view engine', 'hbs');

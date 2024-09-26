@@ -29,7 +29,7 @@ export async function updateAppointments(cosmosDb: Database, appointments: Appoi
   return newAppointments;
 }
 
-export async function getAppointments(cosmosDb: Database): Promise<AppointmentsWithId | undefined> {
+export async function getAppointments(cosmosDb: Database): Promise<Appointments | undefined> {
   const container = await getContainer(cosmosDb, Collections.Appointments);
 
   let query = `SELECT * FROM ${Collections.Appointments} a`;
@@ -37,6 +37,9 @@ export async function getAppointments(cosmosDb: Database): Promise<AppointmentsW
     query: query,
   };
   const items = await container.items.query<AppointmentsWithId>(querySpec).fetchNext();
+  if (items.resources.length === 0) {
+    return;
+  }
 
   return items.resources[0];
 }

@@ -6,7 +6,10 @@
   "scripts": {
     "build": "tsc && cp -r src/views dist/ && cp -r src/public dist/&& cp ./.env dist/ && cp ./package*.json dist/",
     "start": "npm run build && node ./dist/main.js | pino-pretty",
-    "watch": "nodemon"
+    "watch": "nodemon",
+    "import": "npm run build && node ./dist/main.js import --path ./test-data/appointments.json",
+    "import-short": "npm run build && node ./dist/main.js import --path ./test-data/appointments-short.json",
+    "export": "npm run build && node ./dist/main.js export"
   },
   "keywords": [],
   "author": "",

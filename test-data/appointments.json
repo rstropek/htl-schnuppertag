@@ -1,11 +1,30 @@
 {
     "appointments": [
-        { "department": "informatik", "isoDate": "2024-09-24", "maxAttendees": 3 },
-        { "department": "informatik", "isoDate": "2024-09-25", "maxAttendees": 3 },
-        { "department": "informatik", "isoDate": "2024-09-26", "maxAttendees": 3 },
-        { "department": "medientechnik", "isoDate": "2024-09-27", "maxAttendees": 3 },
-        { "department": "medientechnik", "isoDate": "2024-09-28", "maxAttendees": 3 },
-        { "department": "medientechnik", "isoDate": "2024-09-29", "maxAttendees": 3 }
+        { "department": "informatik", "isoDate": "2024-10-24", "maxAttendees": 4 },
+        { "department": "informatik", "isoDate": "2024-10-25", "maxAttendees": 4 },
+        { "department": "informatik", "isoDate": "2024-11-07", "maxAttendees": 4 },
+        { "department": "informatik", "isoDate": "2024-11-08", "maxAttendees": 4 },
+        { "department": "informatik", "isoDate": "2024-11-14", "maxAttendees": 4 },
+        { "department": "informatik", "isoDate": "2024-11-15", "maxAttendees": 4 },
+        { "department": "informatik", "isoDate": "2024-11-21", "maxAttendees": 4 },
+        { "department": "informatik", "isoDate": "2024-11-22", "maxAttendees": 4 },
+        { "department": "informatik", "isoDate": "2024-11-28", "maxAttendees": 4 },
+        { "department": "informatik", "isoDate": "2024-11-29", "maxAttendees": 4 },
+        { "department": "informatik", "isoDate": "2024-12-05", "maxAttendees": 4 },
+        { "department": "informatik", "isoDate": "2024-12-13", "maxAttendees": 4 },
+
+        { "department": "medientechnik", "isoDate": "2024-10-24", "maxAttendees": 4 },
+        { "department": "medientechnik", "isoDate": "2024-10-25", "maxAttendees": 4 },
+        { "department": "medientechnik", "isoDate": "2024-11-07", "maxAttendees": 4 },
+        { "department": "medientechnik", "isoDate": "2024-11-08", "maxAttendees": 4 },
+        { "department": "medientechnik", "isoDate": "2024-11-14", "maxAttendees": 4 },
+        { "department": "medientechnik", "isoDate": "2024-11-15", "maxAttendees": 4 },
+        { "department": "medientechnik", "isoDate": "2024-11-21", "maxAttendees": 4 },
+        { "department": "medientechnik", "isoDate": "2024-11-22", "maxAttendees": 4 },
+        { "department": "medientechnik", "isoDate": "2024-11-28", "maxAttendees": 4 },
+        { "department": "medientechnik", "isoDate": "2024-11-29", "maxAttendees": 4 },
+        { "department": "medientechnik", "isoDate": "2024-12-05", "maxAttendees": 4 },
+        { "department": "medientechnik", "isoDate": "2024-12-13", "maxAttendees": 4 }
     ],
     "rateGirls": 0.5
 }

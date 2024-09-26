@@ -1,0 +1,29 @@
+<main>
+  <p>
+    Deine Daten wurden gespeichert. Du kannst diese Seite ausdrucken oder abspeichern,
+    um deine Anmeldedaten immer zur Hand zu haben. Wir freuen uns auf dich!
+  </p>
+
+  <div class="reg-protocol">
+    <div>Vorname:</div>
+    <div>{{reg.first_name}}</div>
+    <div>Nachname:</div>
+    <div>{{reg.last_name}}</div>
+    <div>Geschlecht:</div>
+    <div>{{formatGender reg.gender}}</div>
+    <div>E-Mail:</div>
+    <div>{{reg.email}}</div>
+    <div>Telefonnummer:</div>
+    <div>{{reg.phone_number}}</div>
+    <div>Wohnort:</div>
+    <div>{{reg.residence}}</div>
+    <div>Aktuelle Schule:</div>
+    <div>{{reg.current_school}}</div>
+    <div>Aktuelle Klasse (Jahrgang):</div>
+    <div>{{reg.current_class}}</div>
+    <div class="highlighted">Abteilung:</div>
+    <div class="highlighted">{{formatDepartment reg.department}}</div>
+    <div class="highlighted">Termin für Schnuppertag:</div>
+    <div class="highlighted">{{dateFormat reg.appointment}}</div>
+  </div>
+</main>

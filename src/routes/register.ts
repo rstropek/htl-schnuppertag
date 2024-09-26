@@ -3,6 +3,7 @@ import logger from "../helpers/logging.js";
 import { Database } from "@azure/cosmos";
 import { getAppointments } from "../data/appointments.js";
 import { Department } from "../data/model.js";
+import { createRegistration, getRegistration, getRegistrationsWithoutWaitinglist, getRegistrationStatistics } from "../data/registrations.js";
 
 type RegisterFormData = {
   first_name: string;
@@ -23,7 +24,7 @@ type RegisterFormData = {
   current_class_error?: string;
   department: string;
   department_error?: string;
-  appointment: string;
+  appointment?: string;
   appointment_error?: string;
 };
 
@@ -35,26 +36,7 @@ type RecaptchaResponse = {
   action: string;
 };
 
-type FormAppointment = {
-  department: Department;
-  isoDate: string; // Date in ISO 8601 format
-  selected?: boolean;
-}
-
-async function buildAppointments(cosmosDb: Database, res: Express.Response, selectedAppointment?: string): Promise<FormAppointment[] | undefined> {
-  const appointments = await getAppointments(cosmosDb);
-  if (!appointments) {
-    return;
-  }
-  const formAppointments: FormAppointment[] = appointments.appointments;
-  for(const fa of formAppointments) {
-    fa.selected = fa.isoDate === selectedAppointment;
-  }
-
-  return formAppointments;
-}
-
-function validateFormData(formData: RegisterFormData, appointments: FormAppointment[]): boolean {
+function validatePersonalFormData(formData: RegisterFormData): boolean {
   let valid = true;
   if (!formData.first_name) {
     formData.first_name_error = "Bitte Vornamen eingeben";
@@ -92,14 +74,6 @@ function validateFormData(formData: RegisterFormData, appointments: FormAppointm
     formData.department_error = "Bitte Abteilung auswählen";
     valid = false;
   }
-  if (!formData.appointment) {
-    formData.appointment_error = "Bitte Termin auswählen";
-    valid = false;
-  }
-  if (!appointments.some((a) => a.isoDate === formData.appointment)) {
-    formData.appointment_error = "Auswahl ungültig, bitte erneut auswählen";
-    valid = false;
-  }
 
   return valid;
 }
@@ -108,16 +82,8 @@ export function createRegistrationRoute(cosmosDb: Database): express.Router {
   const router = express.Router();
 
   router.get("/", async (req, res) => {
-    const appointments = await buildAppointments(cosmosDb, res);
-    if (!appointments) {
-      logger.error("No appointments found");
-      res.status(500).send("No appointments found");
-      return;
-    }
-
     res.render("registration", {
-      captchaKey: process.env.RECAPTCHA_SITE_KEY,
-      appointments,
+      captchaKey: process.env.RECAPTCHA_SITE_KEY
     });
   });
 
@@ -149,19 +115,76 @@ export function createRegistrationRoute(cosmosDb: Database): express.Router {
     }
 
     const formData: RegisterFormData = req.body;
-    const appointments = await buildAppointments(cosmosDb, res, formData.appointment);
-    if (!appointments) {
-      logger.error("No appointments found");
-      res.status(500).send("No appointments found");
+    const valid = validatePersonalFormData(formData);
+    if (!valid) {
+      res.render("registration", {
+        captchaKey: process.env.RECAPTCHA_SITE_KEY,
+        formData,
+      });
+    } else {
+      const apps = await getAppointments(cosmosDb);
+      if (!apps) {
+        res.status(500).send("Failed to get appointments");
+        return;
+      }
+
+      let appointments = apps.appointments;
+      const totalNumberOfSpaces = appointments.reduce((acc, a) => acc + a.maxAttendees, 0) || 0;
+      appointments = appointments.filter(a => a.department === formData.department);
+
+      const stats = await getRegistrationStatistics(cosmosDb, formData.department);
+
+      // Remove appointments that are already full
+      for (let i = appointments.length - 1; i >= 0; i--) {
+        const a = appointments[i]!;
+        const registrations = stats.appointments.find(r => r.isoDate === a.isoDate);
+        if (registrations && registrations.numberOfRegistrations >= a.maxAttendees) {
+          appointments.splice(i, 1);
+        }
+      }
+
+      let full = false;
+      if (appointments.length === 0 || (formData.gender === "male" && stats.registrationsMale >= totalNumberOfSpaces * (1 - apps.rateGirls))) {
+        full = true;
+      }
+      if (formData.appointment && (formData.appointment === 'waiting-list' || (!full && appointments.some(a => a.isoDate === formData.appointment)))) {
+        // Valid appointment has been chosen
+        const reg = await createRegistration(cosmosDb, {
+          first_name: formData.first_name,
+          last_name: formData.last_name,
+          gender: formData.gender,
+          email: formData.email,
+          residence: formData.residence,
+          phone_number: formData.phone_number,
+          department: formData.department,
+          current_school: formData.current_school,
+          current_class: formData.current_class,
+          appointment: formData.appointment,
+        });
+        res.redirect(`/registrations/${reg.id}`);
+        return;
+      }
+
+      res.render("appointments", {
+        captchaKey: process.env.RECAPTCHA_SITE_KEY,
+        formData,
+        appointments: appointments,
+        full
+      });
+    }
+  });
+
+  router.get("/registrations/:id", async (req, res) => {
+    const id = req.params.id;
+    
+    const registration = await getRegistration(cosmosDb, id);
+    if (!registration) {
+      res.status(404).send("Registration not found");
       return;
     }
 
-    const valid = validateFormData(formData, appointments);
-
-    res.render("registration", {
-      captchaKey: process.env.RECAPTCHA_SITE_KEY,
-      appointments,
-      formData,
+    res.render("registration_protocol", {
+      reg: registration
     });
   });
 
