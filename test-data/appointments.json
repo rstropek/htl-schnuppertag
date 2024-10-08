@@ -8,7 +8,6 @@
         { "department": "informatik", "isoDate": "2024-11-15", "maxAttendees": 4 },
         { "department": "informatik", "isoDate": "2024-11-21", "maxAttendees": 4 },
         { "department": "informatik", "isoDate": "2024-11-22", "maxAttendees": 4 },
-        { "department": "informatik", "isoDate": "2024-11-28", "maxAttendees": 4 },
         { "department": "informatik", "isoDate": "2024-11-29", "maxAttendees": 4 },
         { "department": "informatik", "isoDate": "2024-12-05", "maxAttendees": 4 },
         { "department": "informatik", "isoDate": "2024-12-13", "maxAttendees": 4 },
@@ -18,13 +17,9 @@
         { "department": "medientechnik", "isoDate": "2024-11-07", "maxAttendees": 4 },
         { "department": "medientechnik", "isoDate": "2024-11-08", "maxAttendees": 4 },
         { "department": "medientechnik", "isoDate": "2024-11-14", "maxAttendees": 4 },
-        { "department": "medientechnik", "isoDate": "2024-11-15", "maxAttendees": 4 },
         { "department": "medientechnik", "isoDate": "2024-11-21", "maxAttendees": 4 },
-        { "department": "medientechnik", "isoDate": "2024-11-22", "maxAttendees": 4 },
         { "department": "medientechnik", "isoDate": "2024-11-28", "maxAttendees": 4 },
-        { "department": "medientechnik", "isoDate": "2024-11-29", "maxAttendees": 4 },
-        { "department": "medientechnik", "isoDate": "2024-12-05", "maxAttendees": 4 },
-        { "department": "medientechnik", "isoDate": "2024-12-13", "maxAttendees": 4 }
+        { "department": "medientechnik", "isoDate": "2024-12-05", "maxAttendees": 4 }
     ],
     "rateGirls": 0.5
 }
