@@ -42,10 +42,11 @@ export async function getAppointments(cosmosDb: Database): Promise<Appointments 
     return;
   }
 
-  const result: Appointments = {
-    ...items.resources[0], appointments: items.resources[0].appointments.filter(
-      (appointment) => isWorkdaysInThePast(appointment.isoDate, new Date(), -2))
-  };
+  // const result: Appointments = {
+  //   ...items.resources[0], appointments: items.resources[0].appointments.filter(
+  //     (appointment) => isWorkdaysInThePast(appointment.isoDate, new Date(), -2))
+  // };
+  const result = items.resources[0]!;
 
   return result;
 }
