@@ -19,8 +19,8 @@ export function addWorkdays(dateInIso8601: string, days: number): string {
     return date.toISOString().split('T')[0]!;
 }
 
-export function isWorkdaysInThePast(dateInIso8601: string, today: Date, days: number): boolean {
+export function isTodayWorkdaysInThePast(dateInIso8601: string, today: Date, days: number): boolean {
     const date = new Date(dateInIso8601);
-    const pastDate = new Date(addWorkdays(today.toISOString().split('T')[0]!, days));
-    return date < pastDate;
+    const futureDate = new Date(addWorkdays(today.toISOString().split('T')[0]!, days));
+    return futureDate <= date;
 }

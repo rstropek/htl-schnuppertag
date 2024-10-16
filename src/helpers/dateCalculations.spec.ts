@@ -1,5 +1,5 @@
 import { expect, describe, it, xit } from '@jest/globals';
-import { addWorkdays, isWorkdaysInThePast } from './dateCalculations.js';
+import { addWorkdays, isTodayWorkdaysInThePast } from './dateCalculations.js';
 
 describe('addWorkdays', () => {
   it('should add workdays correctly starting from a Monday', () => {
@@ -50,47 +50,11 @@ describe('addWorkdays', () => {
 });
 
 describe('isWorkdaysInThePast', () => {
-  it('should return true when the date is more than specified workdays in the past', () => {
-    const referenceDate = new Date('2024-03-15'); // Friday
-    expect(isWorkdaysInThePast('2024-03-07', referenceDate, -5)).toBe(true);
-  });
-
-  it('should return false when the date is less than specified workdays in the past', () => {
-    const referenceDate = new Date('2024-03-15'); // Friday
-    expect(isWorkdaysInThePast('2024-03-12', referenceDate, -5)).toBe(false);
-  });
-
-  it('should return false when the date is in the future', () => {
-    const referenceDate = new Date('2024-03-15'); // Friday
-    expect(isWorkdaysInThePast('2024-03-20', referenceDate, -5)).toBe(false);
-  });
-
-  it('should handle weekends correctly', () => {
-    const referenceDate = new Date('2024-03-18'); // Monday
-    expect(isWorkdaysInThePast('2024-03-14', referenceDate, -1)).toBe(true);
-    expect(isWorkdaysInThePast('2024-03-14', referenceDate, -2)).toBe(false);
-  });
-
-  it('should return false when the date is exactly the specified number of workdays in the past', () => {
-    const referenceDate = new Date('2024-03-15'); // Friday
-    expect(isWorkdaysInThePast('2024-03-08', referenceDate, -5)).toBe(false);
-  });
-
-  it('should handle month transitions', () => {
-    const referenceDate = new Date('2024-04-03'); // Wednesday
-    expect(isWorkdaysInThePast('2024-03-26', referenceDate, -5)).toBe(true);
-    expect(isWorkdaysInThePast('2024-03-27', referenceDate, -5)).toBe(false);
-  });
-
-  it('should handle year transitions', () => {
-    const referenceDate = new Date('2024-01-04'); // Thursday
-    expect(isWorkdaysInThePast('2023-12-27', referenceDate, -5)).toBe(true);
-    expect(isWorkdaysInThePast('2023-12-28', referenceDate, -5)).toBe(false);
-  });
-
   it('should handle another weekend transitions', () => {
-    const referenceDate = new Date('2024-10-16');
-    expect(isWorkdaysInThePast('2024-10-11', referenceDate, -2)).toBe(true);
-    expect(isWorkdaysInThePast('2024-10-14', referenceDate, -2)).toBe(false);
+    expect(isTodayWorkdaysInThePast('2024-10-16', new Date('2024-10-11'), 3)).toBe(true);
+    expect(isTodayWorkdaysInThePast('2024-10-16', new Date('2024-10-12'), 3)).toBe(true);
+    expect(isTodayWorkdaysInThePast('2024-10-16', new Date('2024-10-13'), 3)).toBe(true);
+    expect(isTodayWorkdaysInThePast('2024-10-16', new Date('2024-10-14'), 3)).toBe(false);
+    expect(isTodayWorkdaysInThePast('2024-10-16', new Date('2024-10-15'), 3)).toBe(false);
   });
 });

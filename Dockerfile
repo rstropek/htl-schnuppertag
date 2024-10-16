@@ -3,6 +3,7 @@ WORKDIR /app-build
 COPY package*.json ./
 RUN npm install
 COPY . .
+RUN npm test
 RUN npm run build-docker
 
 FROM node:lts
