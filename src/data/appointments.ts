@@ -1,6 +1,7 @@
 import { Database, SqlQuerySpec } from "@azure/cosmos";
 import { Collections, getContainer } from "../helpers/cosmosHelper.js";
 import { Appointments, AppointmentsWithId } from "./model.js";
+import { isWorkdaysInThePast } from "../helpers/dateCalculations.js";
 import clap from "command-line-args"
 import logger from "../helpers/logging.js";
 import fs from "fs";
@@ -13,7 +14,7 @@ export async function updateAppointments(cosmosDb: Database, appointments: Appoi
     id: crypto.randomUUID(),
   };
   await container.items.create(newAppointments);
-  
+
   // Delete all other appointment records
   let query = `SELECT * FROM ${Collections.Appointments} a`;
   const querySpec: SqlQuerySpec = {
@@ -37,11 +38,16 @@ export async function getAppointments(cosmosDb: Database): Promise<Appointments 
     query: query,
   };
   const items = await container.items.query<AppointmentsWithId>(querySpec).fetchNext();
-  if (items.resources.length === 0) {
+  if (items.resources.length === 0 || !items.resources[0]) {
     return;
   }
 
-  return items.resources[0];
+  const result: Appointments = {
+    ...items.resources[0], appointments: items.resources[0].appointments.filter(
+      (appointment) => isWorkdaysInThePast(appointment.isoDate, new Date(), -2))
+  };
+
+  return result;
 }
 
 export async function handleAppointmentImport(cosmosDb: Database, argv: string[]): Promise<void> {

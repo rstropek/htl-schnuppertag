@@ -8,6 +8,7 @@
     "build-docker": "tsc && cp -r src/views dist/ && cp -r src/public dist/ && cp ./package*.json dist/",
     "start": "npm run build && node ./dist/main.js | pino-pretty",
     "watch": "nodemon",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "import": "npm run build && node ./dist/main.js import --path ./test-data/appointments.json",
     "import-short": "npm run build && node ./dist/main.js import --path ./test-data/appointments-short.json",
     "export": "npm run build && node ./dist/main.js export"
@@ -30,8 +31,10 @@
     "@types/command-line-args": "^5.2.3",
     "@types/express": "^4.17.21",
     "@types/express-handlebars": "^5.3.1",
+    "jest": "^29.7.0",
     "nodemon": "^3.1.7",
     "pino-pretty": "^11.2.2",
+    "ts-jest": "^29.2.5",
     "typescript": "^5.5.4"
   }
 }
