@@ -16,6 +16,16 @@ footer {
   margin-bottom: 20px;
 }
 
+h2 {
+  font-size: 1rem;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+#impInfo {
+  margin-top: 0;
+}
+
 /* Increase line height */
 p {
   line-height: 1.35;
